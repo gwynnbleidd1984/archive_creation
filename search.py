@@ -9,7 +9,7 @@ def find_file(name, path):
     result = []
     for root, dirs, files in os.walk(path):
         if name in files:
-            result.append(os.path.join(root + "\DB"))
+            result.append(os.path.normpath(root + "\DB"))
     # print (result)
     global path_exe
     path_exe = result
@@ -18,10 +18,13 @@ def find_file(name, path):
 
 def find_dir(name, path):
     result = []
-    for root, dirs, files in os.walk(path, ):
+    for root, dirs, files in os.walk(path):
         if name in dirs:
-            result.append(os.path.join(root, name))
-    # print (result)
+            # print (result)
+            if name.endswith("\""):
+                result.append(os.path.normpath(root + "COPIE_DB"))
+            else:
+                result.append(os.path.normpath(root + "\COPIE_DB"))
     global path_db
     path_db = result
     return path_db
@@ -29,7 +32,6 @@ def find_dir(name, path):
 find_file("WPHARMA.EXE", "C:/")  # search for wpharma.exe file
 f = open("executable.txt", "w")  # write path to file
 for path in path_exe:
-    # path = re.sub(r"\"", "/", path)
     f.write(path + '\n')
 f.close()
 
@@ -38,3 +40,4 @@ f = open("db_path.txt", "w")  # write path to file
 for path in path_db:
     f.write(path + '\n')
 f.close()
+
