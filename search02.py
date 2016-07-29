@@ -1,6 +1,9 @@
 __author__ = 'igor.pochitalkin'
 import os, sys, re, zipfile
 
+file = "WPHARMA.EXE"
+copie = "BACKUPDB.BIN"
+
 def find_file(name, path):
     result = []
     counter = 0
@@ -11,6 +14,6 @@ def find_file(name, path):
             for paths in result:
                 f.write(paths+ '\n')
 
-find_file("WPHARMA.EXE", "C:/")
-find_file("BACKUPDB.BIN", "C:/")
+find_file(file, "C:/")
+find_file(copie, "C:/")
 
