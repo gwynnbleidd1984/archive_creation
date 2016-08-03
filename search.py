@@ -1,43 +1,24 @@
 __author__ = 'igor.pochitalkin'
-import os, sys, re, zipfile
+import os, zipfile, math, time
 
-path_exe = None  # wpharma.exe path
-path_db = None  # DB directory path
-
-
-def find_file(name, path):
-    result = []
-    for root, dirs, files in os.walk(path):
-        if name in files:
-            result.append(os.path.normpath(root + "\DB"))
-    # print (result)
-    global path_exe
-    path_exe = result
-    return path_exe
-
+arch_name = "db_install_" + time.strftime("%Y%m%d" "_" "%H%M")  #backup archive name
+file = "WPHARMA.EXE"                                            #search for a winpharma directory
+copie = "BACKUPDB.BIN"                                          #search for a backup directory
 
 def find_dir(name, path):
-    result = []
+    result = None                                               #directory
+    timer = 0                                                   #directory choosing criteria(by usage time)
     for root, dirs, files in os.walk(path):
-        if name in dirs:
-            # print (result)
-            if name.endswith("\""):
-                result.append(os.path.normpath(root + "COPIE_DB"))
-            else:
-                result.append(os.path.normpath(root + "\COPIE_DB"))
-    global path_db
-    path_db = result
-    return path_db
+        if name in files:
+            lastcall = math.trunc(os.path.getatime(root))       #last file usage time (unixtime)
+            if timer < lastcall:
+                timer = lastcall
+                result = os.path.normpath(root)                 #path to directory containing file
+    return  result
 
-find_file("WPHARMA.EXE", "C:/")  # search for wpharma.exe file
-f = open("executable.txt", "w")  # write path to file
-for path in path_exe:
-    f.write(path + '\n')
-f.close()
+to_save = (find_dir(file, "C:/") + "\DB")
+print(to_save)
 
-find_dir("COPIE_DB", "C:/")  # search for DB directory
-f = open("db_path.txt", "w")  # write path to file
-for path in path_db:
-    f.write(path + '\n')
-f.close()
+saving_place = (find_dir(copie, "C:/"))
+print(saving_place)
 

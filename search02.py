@@ -1,19 +1,10 @@
-__author__ = 'igor.pochitalkin'
-import os, sys, re, zipfile
+import time, zipfile, shutil
+a = "db_install_" + time.strftime("%Y%m%d" "_" "%H%M")
 
-file = "WPHARMA.EXE"
-copie = "BACKUPDB.BIN"
+print(a)
 
-def find_file(name, path):
-    result = []
-    counter = 0
-    for root, dirs, files in os.walk(path):
-        if name in files:
-            result.append(os.path.normpath(root))
-            f = open(name+".txt", "w")  # write path to file
-            for paths in result:
-                f.write(paths+ '\n')
+#f = open(a+".txt", "w")  # write path to file
+#f.write(a)
 
-find_file(file, "C:/")
-find_file(copie, "C:/")
-
+myarchive = zipfile.ZipFile("archivename.zip", "w")
+myarchive.write("C:\COPIE_DB", a +".txt", zipfile.ZIP_DEFLATED)
