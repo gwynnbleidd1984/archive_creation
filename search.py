@@ -16,9 +16,9 @@ def find_dir(name, path):
                 result = os.path.normpath(root)                 #path to directory containing file
     return  result
 
-to_save = (find_dir(file, "C:/") + "\DB")
+to_save = (find_dir(file, "C:/") + "\DB")                       #finding last used wpharma.exe file
 print(to_save)
 
-saving_place = (find_dir(copie, "C:/"))
+saving_place = (find_dir(copie, "C:/"))                         #finding last used copie_db folder
 print(saving_place)
 
