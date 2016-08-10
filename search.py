@@ -18,13 +18,10 @@ def find_dir(name, path):                                       #searching direc
     return  result
 
 to_save = (find_dir(file, "C:/") + "\DB")                       #finding last used wpharma.exe file
-#print(to_save)
 
 saving_place = (find_dir(copie, "C:/"))                         #finding last used copie_db folder
-#print(saving_place)
 
 arch_fullpath = saving_place + "\\" + arch_name + ".zip"
-#print(arch_fullpath)
 
 arch = zipfile.ZipFile(arch_fullpath, "w")
 for files in os.listdir(to_save):
