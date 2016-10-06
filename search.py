@@ -1,25 +1,27 @@
 __author__ = 'igor.pochitalkin'
 import os, zipfile, math, time
 
-arch_name = "db_install_" + time.strftime("%Y%m%d" "_" "%H%M")  #backup archive name
-file = "WPHARMA.EXE"                                            #winpharma directory
-copie = "BACKUPDB.BIN"                                          #backup directory
+arch_name = "db_install_" + time.strftime("%Y%m%d" "_" "%H%M")  # backup archive name
+file = "WPHARMA.EXE"  # winpharma directory
+copie = "BACKUPDB.BIN"  # backup directory
 
-def find_dir(name, path):                                       #searching directory
-    result = None                                               #directory
-    timer = 0                                                   #directory choosing criteria(by usage time)
+
+def find_dir(name, path):  # searching directory
+    result = None  # directory
+    timer = 0  # directory choosing criteria(by usage time)
     for root, dirs, files in os.walk(path):
         if name in files:
-            lastcall = math.trunc(os.path.getatime(root))       #last file usage time (unixtime)
+            lastcall = math.trunc(os.path.getatime(root))  # last file usage time (unixtime)
             if timer < lastcall:
                 timer = lastcall
-                result = os.path.normpath(root)                 #path to directory containing file
-                #print(lastcall, result)
-    return  result
+                result = os.path.normpath(root)  # path to directory containing file
+                # print(lastcall, result)
+    return result
 
-to_save = (find_dir(file, "C:/") + "\DB")                       #finding last used wpharma.exe file
 
-saving_place = (find_dir(copie, "C:/"))                         #finding last used copie_db folder
+to_save = (find_dir(file, "C:/") + "\DB")  # finding last used wpharma.exe file
+
+saving_place = (find_dir(copie, "C:/"))  # finding last used copie_db folder
 
 arch_fullpath = saving_place + "\\" + arch_name + ".zip"
 
