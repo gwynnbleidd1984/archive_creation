@@ -2,7 +2,7 @@ __author__ = 'igor.pochitalkin'
 import os, zipfile, math, time
 
 arch_name = "db_install_" + time.strftime("%Y%m%d" "_" "%H%M")  # backup archive name
-file = "WPHARMA.EXE"  # winpharma directory
+file = "_DB_CONF.INI"  # winpharma directory
 copie = "BACKUPDB.BIN"  # backup directory
 
 
@@ -19,7 +19,7 @@ def find_dir(name, path):  # searching directory
     return result
 
 
-to_save = (find_dir(file, "C:/") + "\DB")  # finding last used wpharma.exe file
+to_save = (find_dir(file, "C:/"))  # finding last used wpharma.exe file
 
 saving_place = (find_dir(copie, "C:/"))  # finding last used copie_db folder
 
